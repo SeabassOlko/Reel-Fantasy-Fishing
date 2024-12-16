@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 996165912687270715}
   - component: {fileID: 1302454616050702529}
   m_Layer: 0
-  m_Name: SparkledBass
+  m_Name: GalacticGrouper
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -45,15 +45,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 103509bee7ba9a04690035d79ebfcdb7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  name: Sparkled Bass
-  minWeight: 1
-  maxWeight: 4
+  fishSprite: {fileID: -1702445746, guid: 520ef86afc25045448e9ad00d6c06e9f, type: 3}
+  fishName: Galactic Grouper
+  minWeight: 5
+  maxWeight: 8
   weight: 0
-  speed: 0.1
-  agression: 5
-  baseValue: 30
+  speed: 4
+  agression: 7
+  baseValue: 225
   value: 0
-  fishRarity: 0
+  fishRarity: 4
 --- !u!114 &1302454616050702529
 MonoBehaviour:
   m_ObjectHideFlags: 0

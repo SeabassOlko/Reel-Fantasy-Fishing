@@ -34,12 +34,12 @@
                 },
                 {
                     "name": "SideToSideTilt",
-                    "type": "PassThrough",
+                    "type": "Value",
                     "id": "a594da76-14e5-41ed-aa59-fced07860a59",
                     "expectedControlType": "Vector3",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": false
+                    "initialStateCheck": true
                 }
             ],
             "bindings": [
@@ -79,7 +79,7 @@
                 {
                     "name": "",
                     "id": "85261d29-0bd7-4f12-a8d9-e48cfd97082d",
-                    "path": "<Gyroscope>/angularVelocity",
+                    "path": "<Accelerometer>/acceleration",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

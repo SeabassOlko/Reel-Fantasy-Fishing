@@ -12,7 +12,8 @@ public class FishBehavior : MonoBehaviour
     public bool isActive = false;
 
     bool moveDirection;
-    float baseMoveTime, moveTime, currentTime = 0f;
+    float baseMoveTime = 50f;
+    float moveTime, currentTime = 0f;
 
     // Start is called before the first frame update
     void Start()
@@ -23,7 +24,8 @@ public class FishBehavior : MonoBehaviour
             moveDirection = true;
         else
             moveDirection = false;
-        moveTime = baseMoveTime / fishInfo.GetAgression();
+        SetMoveTime();
+        Debug.Log("Move Time: " + moveTime);
     }
 
     // Update is called once per frame
@@ -39,7 +41,18 @@ public class FishBehavior : MonoBehaviour
         else
         {
             currentTime = 0f;
+            SetMoveTime();
             moveDirection = !moveDirection;
         }
+    }
+
+    void SetMoveTime()
+    {
+        moveTime = Random.Range(0.1f, baseMoveTime / fishInfo.GetAgression());
+    }
+
+    public void MakeActive()
+    {
+        isActive = true;
     }
 }

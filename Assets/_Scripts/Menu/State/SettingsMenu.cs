@@ -12,12 +12,5 @@ public class SettingsMenu : BaseMenu
         base.InitState(ctx);
         state = MenuController.MenuStates.Settings;
         backButton.onClick.AddListener(JumpBack);
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

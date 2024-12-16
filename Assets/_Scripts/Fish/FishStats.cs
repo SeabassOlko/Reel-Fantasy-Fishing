@@ -6,9 +6,10 @@ public class FishStats : MonoBehaviour
     {
         common, uncommon, rare, legendary, mythical
     }
-
     [SerializeField]
-    string name;
+    Sprite fishSprite;
+    [SerializeField]
+    string fishName;
     [SerializeField]
     float minWeight, maxWeight, weight, speed, agression;
     [SerializeField]
@@ -44,12 +45,17 @@ public class FishStats : MonoBehaviour
 
     public string GetName() 
     {
-        return name;
+        return fishName;
     }
 
     public int GetValue()
     {
         return value;
+    }
+
+    public Sprite GetFishSprite()
+    {
+        return fishSprite;
     }
 
     public void DestroyFish()

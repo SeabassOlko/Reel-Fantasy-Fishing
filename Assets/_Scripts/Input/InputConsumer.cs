@@ -48,6 +48,7 @@ public class InputConsumer : MonoBehaviour
         pressed = false;
         endTime = Time.time;
         DetectInput();
+        playerController.currentlyReeling = false;
     }
 
     void DetectInput()
@@ -76,7 +77,12 @@ public class InputConsumer : MonoBehaviour
     {
         if (pressed && Time.time - startTime > holdTimeToStart && playerController.IsReeling())
         {
+            playerController.currentlyReeling = true;
             playerController.ReelCheck(inputManager.PrimaryPosition());
+        }
+        if (playerController.IsReeling())
+        {
+            playerController.ShowTilt(inputManager.LeftRightTilt().x);
         }
     }
 

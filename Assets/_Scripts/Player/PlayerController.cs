@@ -1,6 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour
 {
@@ -8,29 +8,82 @@ public class PlayerController : MonoBehaviour
     bool firstReel = false;
 
     [SerializeField]
+    float reelSpeed = 0.5f;
+    [SerializeField]
+    float tiltSpeed = 1f;
+    [SerializeField]
+    float tensionLossSpeed = 0.5f;
+    [SerializeField]
     GameObject bobberPrefab;
+    [SerializeField]
+    BlankMenu blankMenu;
+    [SerializeField]
+    FishingMenu fishingMenu;
+    [SerializeField]
+    CatchMenu catchMenu;
+    [SerializeField]
+    ReelingMenu reelingMenu;
+    [SerializeField]
+    LoseMenu loseMenu;
 
-    public int level;
+    [SerializeField]
+    GameObject RodIdle, RodReeling;
+    [SerializeField]
+    Transform RodIdleTip, RodReelingTip;
+    [SerializeField]
+    LineRenderer fishingLine;
 
     // Player Input Variety Trackers
     bool isPlayerReeling = false;
+    public bool currentlyReeling = false;
     bool isShopping = false;
     bool isCasting = true;
     bool isSetting = false;
     bool isHandlingFish = false;
 
+    [SerializeField]
+    BobberSliderController bobberSliderController;
 
+    PlayerInventory inventory;
 
-    // Start is called before the first frame update
+    BobberMechanics bobber;
+
+    AudioSource playerAudioSource;
+
+    [SerializeField]
+    AudioClip reelClip;
+
     void Start()
     {
-        
+        inventory = GetComponent<PlayerInventory>();
+        playerAudioSource = GetComponent<AudioSource>();
+        RodIdle.SetActive(true);
+        fishingLine.positionCount = 2;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        
+        if (isPlayerReeling && !currentlyReeling)
+        {
+            bobberSliderController.RemoveTension(tensionLossSpeed * Time.deltaTime);
+        }
+        if (isPlayerReeling)
+        {
+            fishingLine.SetPosition(0, RodReelingTip.position);
+            fishingLine.SetPosition(1, bobber.GetComponent<Transform>().position);
+        }
+        if (isSetting)
+        {
+            fishingLine.SetPosition(0, RodIdleTip.position);
+            fishingLine.SetPosition(1, bobber.GetComponent<Transform>().position);
+        }
+        if (!isSetting && !isPlayerReeling)
+            fishingLine.gameObject.SetActive(false);
+    }
+
+    public int GetBait()
+    {
+        return inventory.GetCurrentBaitType();
     }
 
     public void ReelCheck(Vector3 touchPos)
@@ -48,8 +101,8 @@ public class PlayerController : MonoBehaviour
             {
                 if (touchPos.x > firstFingerPos.x || touchPos.y < firstFingerPos.y)
                 {
-                    Debug.Log("top right quad");
-                    // add to the reel amount Vector3.Distance(firstFingerPos, touchPos);
+                    Debug.Log("Top right quad");
+                    bobberSliderController.AddProgress(reelSpeed * Time.deltaTime);
                 }
             }
             // check top left quadrant
@@ -58,7 +111,7 @@ public class PlayerController : MonoBehaviour
                 if (touchPos.x > firstFingerPos.x || touchPos.y > firstFingerPos.y)
                 {
                     Debug.Log("top left quad");
-                    // add to the reel amount Vector3.Distance(firstFingerPos, touchPos);
+                    bobberSliderController.AddProgress(reelSpeed * Time.deltaTime);
                 }
             }
             // check bottom left quadrant
@@ -67,7 +120,7 @@ public class PlayerController : MonoBehaviour
                 if (touchPos.x < firstFingerPos.x || touchPos.y > firstFingerPos.y)
                 {
                     Debug.Log("bottom left quad");
-                    // add to the reel amount Vector3.Distance(firstFingerPos, touchPos);
+                    bobberSliderController.AddProgress(reelSpeed * Time.deltaTime);
                 }
             }
             // check bottom right quadrant
@@ -76,10 +129,12 @@ public class PlayerController : MonoBehaviour
                 if (touchPos.x < firstFingerPos.x || touchPos.y < firstFingerPos.y)
                 {
                     Debug.Log("bottom right quad");
-                    // add to the reel amount Vector3.Distance(firstFingerPos, touchPos);
+                    bobberSliderController.AddProgress(reelSpeed * Time.deltaTime);
                 }
             }
             firstFingerPos = touchPos;
+            if (!playerAudioSource.isPlaying)
+                playerAudioSource.PlayOneShot(reelClip);
         }
     }
 
@@ -93,21 +148,57 @@ public class PlayerController : MonoBehaviour
 
     public void CastHook()
     {
+        if (!isCasting || inventory.GetCurrentBaitAmount() == 0)
+            return;
         Debug.Log("Casting hook out");
         isCasting = false;
         isSetting = true;
-        Instantiate(bobberPrefab, new Vector3(0, 0, 0), transform.rotation);
+        fishingLine.gameObject.SetActive(true);
+        inventory.UseCurrentBait();
+        fishingMenu.Casting();
+        bobber = Instantiate(bobberPrefab, new Vector3(0, 0, 0), transform.rotation).GetComponent<BobberMechanics>();
+        inventory.SaveInventory();
     }
 
     public void setHook()
     {
+        if (!isSetting)
+            return;
+
+        if (!bobber.FishBiting())
+        {
+            bobber.FishEscaped();
+            return;
+        }
         isPlayerReeling = true;
         isSetting = false;
+        RodIdle.SetActive(false);
+        RodReeling.SetActive(true);
+        blankMenu.SetHook();
     }
 
     public void MissedFish()
     {
-        Debug.Log("Did not hook fish in time");
+        reelingMenu.FishEscaped();
+        fishingMenu.UpdateBait();
+        fishingMenu.UpdateCoins();
+        RodIdle.SetActive(true);
+        RodReeling.SetActive(false);
+        isPlayerReeling = false;
+        isSetting = false;
+        isCasting = true;
+        if (CheckGameOver())
+            fishingMenu.EnterLoseMenu();
+    }
+
+    public void CatchFish(Sprite fishSprite, string fishName, float weight, int value)
+    {
+        reelingMenu.FishCaught();
+        catchMenu.SetUpFishInfo(fishSprite, fishName, weight, value);
+        RodIdle.SetActive(true);
+        RodReeling.SetActive(false);
+        isHandlingFish = true;
+        isPlayerReeling = false;
     }
 
     public bool IsReeling()
@@ -152,5 +243,26 @@ public class PlayerController : MonoBehaviour
     public void SetIsHandlingFish(bool handling)
     {
         isHandlingFish = handling;
+    }
+
+    public void ShowTilt(float tilt)
+    {
+        if (tilt < -0.1 || tilt > 0.1)
+        {
+            float tiltToApply = Mathf.Clamp(tilt, -0.6f, 0.6f);
+            bobber.moveBobber(tiltToApply * tiltSpeed * Time.deltaTime);
+        }
+    }
+
+    bool CheckGameOver()
+    {
+        if (inventory.GetTotalBait() <= 0 && inventory.GetGold() < 15)
+        {
+            LoadSaveManager.Instance.gameData.playerStats.gameReset = true;
+            LoadSaveManager.Instance.Save();
+
+            return true;
+        }
+        return false;
     }
 }

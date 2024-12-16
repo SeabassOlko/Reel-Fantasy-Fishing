@@ -10,7 +10,7 @@ public class MenuController : MonoBehaviour
     //State reference for all the menus. Can be later seperated into a different file, used for dictionary keys
     public enum MenuStates
     {
-        MainMenu, Settings, Pause, InGame, Credits
+        MainMenu, Settings, Pause, InGame, Credits, Shop, Reel, Blank, Catch, Lose
     }
 
     //Current state reference
