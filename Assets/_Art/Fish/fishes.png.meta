@@ -341,7 +341,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fishes_11
+      name: Adamantine Bullhead
       rect:
         serializedVersion: 2
         x: 353
@@ -446,7 +446,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fishes_16
+      name: Witch Walleye
       rect:
         serializedVersion: 2
         x: 129
@@ -698,7 +698,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fishes_28
+      name: Blade Fin Bream
       rect:
         serializedVersion: 2
         x: 129
@@ -761,7 +761,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fishes_31
+      name: Rogue Catfish
       rect:
         serializedVersion: 2
         x: 225
@@ -803,7 +803,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fishes_33
+      name: Blinding Sunfish
       rect:
         serializedVersion: 2
         x: 289
@@ -845,7 +845,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fishes_35
+      name: Silvered Sturgeon
       rect:
         serializedVersion: 2
         x: 353
@@ -1055,7 +1055,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fishes_45
+      name: Sawtooth Gar
       rect:
         serializedVersion: 2
         x: 289
@@ -1160,7 +1160,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fishes_50
+      name: Corrupted Cod
       rect:
         serializedVersion: 2
         x: 65
@@ -1328,7 +1328,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fishes_58
+      name: Atlantean Bluegill
       rect:
         serializedVersion: 2
         x: 321
@@ -1370,7 +1370,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fishes_60
+      name: Thunder Eel
       rect:
         serializedVersion: 2
         x: 2
@@ -2420,7 +2420,7 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: fishes_110
+      name: Young Kraken
       rect:
         serializedVersion: 2
         x: 65
@@ -3144,15 +3144,26 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
+      Adamantine Bullhead: 1765625238
+      Atlantean Bluegill: -1908258513
       Berserker Big Bass: -589526784
+      Blade Fin Bream: 1922137249
+      Blinding Sunfish: -1605921464
       Celestial Trout: 728715428
+      Corrupted Cod: 227110293
       Demonic Delver: 1797980152
       Dragon Maw Pike: 117266439
       Galactic Grouper: -1702445746
       Goblin Drum: -942128094
       Mythril Musky: -934619787
       Phantasmal Perch: 1767060263
+      Rogue Catfish: -130997252
+      Sawtooth Gar: 909615638
+      Silvered Sturgeon: -1575012960
       Sparkled Bass: 315433137
+      Thunder Eel: 339309361
+      Witch Walleye: 485274438
+      Young Kraken: -1274869668
       fishes_0: -1090371206
       fishes_1: 520598593
       fishes_10: 57568346
@@ -3166,8 +3177,6 @@ TextureImporter:
       fishes_107: 1795493257
       fishes_108: 1734305140
       fishes_109: 2124283392
-      fishes_11: 1765625238
-      fishes_110: -1274869668
       fishes_111: -946155210
       fishes_112: -922190672
       fishes_113: 1285986106
@@ -3205,7 +3214,6 @@ TextureImporter:
       fishes_142: 1680964790
       fishes_143: -1692036914
       fishes_15: -1453804544
-      fishes_16: 485274438
       fishes_17: 148770393
       fishes_18: 967530702
       fishes_2: -2127518252
@@ -3217,14 +3225,10 @@ TextureImporter:
       fishes_25: 832985171
       fishes_26: 732225408
       fishes_27: -751623639
-      fishes_28: 1922137249
       fishes_29: -1201548733
       fishes_3: -2040187582
       fishes_30: -211265036
-      fishes_31: -130997252
-      fishes_33: -1605921464
       fishes_34: 405971804
-      fishes_35: -1575012960
       fishes_37: 904696554
       fishes_39: 1460941621
       fishes_4: -973426094
@@ -3232,22 +3236,18 @@ TextureImporter:
       fishes_42: -1379985067
       fishes_43: 383950274
       fishes_44: -1318617022
-      fishes_45: 909615638
       fishes_46: -2074168927
       fishes_47: 451569163
       fishes_48: 836394970
       fishes_49: 1716442932
       fishes_5: -1580207778
-      fishes_50: 227110293
       fishes_52: -1716377596
       fishes_54: 307890768
       fishes_55: 1744365383
       fishes_56: -347704912
       fishes_57: -485888989
-      fishes_58: -1908258513
       fishes_59: -671178100
       fishes_6: -1030830522
-      fishes_60: 339309361
       fishes_61: 2028055056
       fishes_62: -128131413
       fishes_63: -1030101869

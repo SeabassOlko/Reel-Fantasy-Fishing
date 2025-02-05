@@ -49,4 +49,38 @@ public class FishLibrary : MonoBehaviour
 
         return commonFishLibrary[0];
     }
+
+    public string[] GetAllFish()
+    {
+        string[] fishNames = new string[commonFishLibrary.Length + unCommonFishLibrary.Length + rareFishLibrary.Length + legendaryFishLibrary.Length + mythicalFishLibrary.Length];
+        int count = 0;
+
+        foreach (GameObject fish in commonFishLibrary)
+        {
+            fishNames[count] = fish.name;
+            count++;
+        }
+        foreach (GameObject fish in unCommonFishLibrary)
+        {
+            fishNames[count] = fish.name;
+            count++;
+        }
+        foreach (GameObject fish in rareFishLibrary)
+        {
+            fishNames[count] = fish.name;
+            count++;
+        }
+        foreach (GameObject fish in legendaryFishLibrary)
+        {
+            fishNames[count] = fish.name;
+            count++;
+        }
+        foreach (GameObject fish in mythicalFishLibrary)
+        {
+            fishNames[count] = fish.name;
+            count++;
+        }
+
+        return fishNames;
+    }
 }

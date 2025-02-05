@@ -3,16 +3,34 @@ using System.Xml.Serialization;
 using System.IO;
 using System.Security.Cryptography;
 using System.Text;
+using System.Collections.Generic;
 
 
 public class LoadSaveManager : Singleton<LoadSaveManager>
 {
     public class GameData
     {
+        public class FishScore
+        {
+            public FishScore()
+            {
+                name = "";
+                weight = 0;
+            }
+            public FishScore(string fishname, int fishWeight)
+            {
+                name = fishname;
+                weight = fishWeight;
+            }
+            public string name;
+            public float weight;
+        }
         public class HighScores
         {
             public int highestGoldAmount;
             public float heaviestWeight;
+
+            public List<FishScore> fishScores = new List<FishScore>();
         }
 
         public class PlayerStats
@@ -33,6 +51,9 @@ public class LoadSaveManager : Singleton<LoadSaveManager>
 
     // Game data to save/load
     public GameData gameData = new GameData();
+
+    [SerializeField]
+    GameObject fishLibraryRef;
 
     void Start()
     {
@@ -93,6 +114,9 @@ public class LoadSaveManager : Singleton<LoadSaveManager>
             ResetPlayerData();
             gameData.highScores.heaviestWeight = 0f;
             gameData.highScores.highestGoldAmount = 0;
+            string[] fishNames = fishLibraryRef.GetComponent<FishLibrary>().GetAllFish();
+            foreach (string fishName in fishNames)
+                gameData.highScores.fishScores.Add(new GameData.FishScore(fishName, 0));
             Save();
             PrintStats();
         }
@@ -101,6 +125,8 @@ public class LoadSaveManager : Singleton<LoadSaveManager>
     void PrintStats()
     {
         Debug.Log("Gold: " + gameData.playerStats.gold + " Common Bait: " + gameData.playerStats.commonBait + " Casters Bait: " + gameData.playerStats.castersBait + " Anglers Bait: " + gameData.playerStats.anglersBait + " Enchanted Bait: " + gameData.playerStats.enchantedBait);
+        foreach (GameData.FishScore fish in gameData.highScores.fishScores)
+            Debug.Log(fish.name + "Weight: " + fish.weight);
     }
 
     public void ResetPlayerData()

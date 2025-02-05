@@ -15,6 +15,8 @@ public class PlayerController : MonoBehaviour
     float tensionLossSpeed = 0.5f;
     [SerializeField]
     GameObject bobberPrefab;
+
+    //Menus
     [SerializeField]
     BlankMenu blankMenu;
     [SerializeField]
@@ -150,14 +152,19 @@ public class PlayerController : MonoBehaviour
     {
         if (!isCasting || inventory.GetCurrentBaitAmount() == 0)
             return;
+        RodIdle.GetComponent<Animator>().SetTrigger("Cast");
         Debug.Log("Casting hook out");
         isCasting = false;
-        isSetting = true;
-        fishingLine.gameObject.SetActive(true);
         inventory.UseCurrentBait();
         fishingMenu.Casting();
-        bobber = Instantiate(bobberPrefab, new Vector3(0, 0, 0), transform.rotation).GetComponent<BobberMechanics>();
         inventory.SaveInventory();
+    }
+
+    public void SpawnBobber()
+    {
+        fishingLine.gameObject.SetActive(true);
+        bobber = Instantiate(bobberPrefab, new Vector3(0, 0, 0), transform.rotation).GetComponent<BobberMechanics>();
+        isSetting = true;
     }
 
     public void setHook()
@@ -250,6 +257,7 @@ public class PlayerController : MonoBehaviour
         if (tilt < -0.1 || tilt > 0.1)
         {
             float tiltToApply = Mathf.Clamp(tilt, -0.6f, 0.6f);
+            RodReeling.transform.Rotate(0, 0, Mathf.Clamp(tiltToApply * 27, -13.0f, 13.0f), Space.Self);
             bobber.moveBobber(tiltToApply * tiltSpeed * Time.deltaTime);
         }
     }
