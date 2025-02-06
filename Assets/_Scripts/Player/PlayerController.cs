@@ -254,10 +254,14 @@ public class PlayerController : MonoBehaviour
 
     public void ShowTilt(float tilt)
     {
+        // apply visual tilt to rod
+        Quaternion rodRotation = new Quaternion();
+        rodRotation.eulerAngles = new Vector3(0, 0, -1 * Mathf.Clamp(tilt * 27, -13.0f, 13.0f));
+        RodReeling.transform.rotation = rodRotation;
+
         if (tilt < -0.1 || tilt > 0.1)
         {
             float tiltToApply = Mathf.Clamp(tilt, -0.6f, 0.6f);
-            RodReeling.transform.Rotate(0, 0, Mathf.Clamp(tiltToApply * 27, -13.0f, 13.0f), Space.Self);
             bobber.moveBobber(tiltToApply * tiltSpeed * Time.deltaTime);
         }
     }
