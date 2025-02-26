@@ -40,6 +40,7 @@ public class LoadSaveManager : Singleton<LoadSaveManager>
             public bool gameReset = false;
         }
 
+        public string PlayerUsername = "";
         public PlayerStats playerStats = new PlayerStats();
         public HighScores highScores = new HighScores();
     }
@@ -120,6 +121,9 @@ public class LoadSaveManager : Singleton<LoadSaveManager>
             Save();
             PrintStats();
         }
+
+        if (gameData.PlayerUsername == "")
+            FindAnyObjectByType<MainMenuManager>().OpenUsernameCreation();
     }
 
     void PrintStats()

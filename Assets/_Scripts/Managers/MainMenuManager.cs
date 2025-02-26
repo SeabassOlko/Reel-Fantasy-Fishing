@@ -7,14 +7,15 @@ using UnityEngine.SceneManagement;
 public class MainMenuManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject mainMenuCanvas, instructionsCanvas;
+    GameObject mainMenuCanvas, instructionsCanvas, usernameCreationCanvas, leaderboardCanvas;
 
     [SerializeField]
-    TMP_Text coinHighscoreText, weightHighscoreText;
+    TMP_Text coinHighscoreText, weightHighscoreText, leaderboardHeaviestFishText;
 
     void SetHighscoreTexts()
     {
         weightHighscoreText.text = Mathf.Round(LoadSaveManager.Instance.gameData.highScores.heaviestWeight * 100) / 100 + " lb";
+        leaderboardHeaviestFishText.text = Mathf.Round(LoadSaveManager.Instance.gameData.highScores.heaviestWeight * 100) / 100 + " lb";
         coinHighscoreText.text = "X " + LoadSaveManager.Instance.gameData.highScores.highestGoldAmount;
     }
 
@@ -44,6 +45,35 @@ public class MainMenuManager : MonoBehaviour
     {
         mainMenuCanvas?.SetActive(true);
         instructionsCanvas?.SetActive(false);
+    }
+
+    public void OpenUsernameCreation()
+    {
+        mainMenuCanvas.SetActive(false);
+        usernameCreationCanvas.SetActive(true);
+    }
+
+    public void CloseUsernameCreation()
+    {
+        mainMenuCanvas?.SetActive(true);
+        usernameCreationCanvas?.SetActive(false);
+    }
+
+    public void OpenLeaderboard()
+    {
+        mainMenuCanvas.SetActive(false);
+        leaderboardCanvas.SetActive(true);
+    }
+
+    public bool IsLeaderboardLoaded()
+    {
+        return leaderboardCanvas.activeSelf;
+    }
+
+    public void CloseLeaderboard()
+    {
+        mainMenuCanvas?.SetActive(true);
+        leaderboardCanvas?.SetActive(false);
     }
 
     public void ExitGame()

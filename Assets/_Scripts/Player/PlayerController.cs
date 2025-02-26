@@ -201,7 +201,8 @@ public class PlayerController : MonoBehaviour
     public void CatchFish(Sprite fishSprite, string fishName, float weight, int value)
     {
         reelingMenu.FishCaught();
-        catchMenu.SetUpFishInfo(fishSprite, fishName, weight, value);
+        float roundedWeight = Mathf.Round(weight * 100) / 100;
+        catchMenu.SetUpFishInfo(fishSprite, fishName, roundedWeight, value);
         RodIdle.SetActive(true);
         RodReeling.SetActive(false);
         isHandlingFish = true;

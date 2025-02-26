@@ -30,7 +30,7 @@ public class CatchMenu : BaseMenu
     {
         fishImage.sprite = fishSprite;
         fishName.text = fishN;
-        fishWeight.text = "Weight: " + Mathf.Round(weight * 100) / 100 +"lb";
+        fishWeight.text = "Weight: " + weight +"lb";
         fishValue.text = "Value: " + value + "g";
         fishRealValue = value;
         if (weight > LoadSaveManager.Instance.gameData.highScores.heaviestWeight)
