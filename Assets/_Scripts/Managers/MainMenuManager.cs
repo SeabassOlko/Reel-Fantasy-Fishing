@@ -10,12 +10,25 @@ public class MainMenuManager : MonoBehaviour
     GameObject mainMenuCanvas, instructionsCanvas, usernameCreationCanvas, leaderboardCanvas;
 
     [SerializeField]
-    TMP_Text coinHighscoreText, weightHighscoreText, leaderboardHeaviestFishText;
+    TMP_Text coinHighscoreText, weightHighscoreText;
+
+    LeaderBoardInitializer leaderboard;
+
+    [Header("Leaderboard Texts")]
+    [SerializeField]
+    TMP_Text leaderboardScoreText, leaderboardScoreTypeText, leaderboardPlayerScoreTypeText, leaderboardListScoreType;
+
+    bool leaderboardWeight = true;
+
+    private void Start()
+    {
+        leaderboard = FindAnyObjectByType<LeaderBoardInitializer>();
+        leaderboardScoreText.text = Mathf.Round(LoadSaveManager.Instance.gameData.highScores.heaviestWeight * 100) / 100 + " lb";
+    }
 
     void SetHighscoreTexts()
     {
         weightHighscoreText.text = Mathf.Round(LoadSaveManager.Instance.gameData.highScores.heaviestWeight * 100) / 100 + " lb";
-        leaderboardHeaviestFishText.text = Mathf.Round(LoadSaveManager.Instance.gameData.highScores.heaviestWeight * 100) / 100 + " lb";
         coinHighscoreText.text = "X " + LoadSaveManager.Instance.gameData.highScores.highestGoldAmount;
     }
 
@@ -63,6 +76,29 @@ public class MainMenuManager : MonoBehaviour
     {
         mainMenuCanvas.SetActive(false);
         leaderboardCanvas.SetActive(true);
+    }
+
+    public void SwitchLeaderboard()
+    {
+        if (leaderboardWeight)
+        {
+            leaderboardWeight = false;
+            leaderboardScoreText.text = LoadSaveManager.Instance.gameData.highScores.highestGoldAmount + " gp";
+            leaderboardPlayerScoreTypeText.text = "Your Best Run!";
+            leaderboardScoreTypeText.text = "Best Run";
+            leaderboardListScoreType.text = "gp";
+            leaderboard.LoadBoard(LeaderBoardInitializer.bestRunLeaderboardID);
+        }
+        else
+        {
+            leaderboardWeight = true;
+            leaderboardScoreText.text = Mathf.Round(LoadSaveManager.Instance.gameData.highScores.heaviestWeight * 100) / 100 + " lb";
+            leaderboardPlayerScoreTypeText.text = "Your Heaviest Fish!";
+            leaderboardScoreTypeText.text = "Heaviest Fish";
+            leaderboardListScoreType.text = "lbs";
+            leaderboard.LoadBoard(LeaderBoardInitializer.heaviestCatchLeaderboardID);
+        }
+
     }
 
     public bool IsLeaderboardLoaded()

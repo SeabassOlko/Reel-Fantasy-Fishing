@@ -477,7 +477,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   standingText: {fileID: 431440774550535248}
   usernameText: {fileID: 5606105554374691369}
-  weightText: {fileID: 4987613114490971300}
+  scoreText: {fileID: 4987613114490971300}
 --- !u!1 &4303835886147298517
 GameObject:
   m_ObjectHideFlags: 0

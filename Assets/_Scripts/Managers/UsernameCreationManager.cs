@@ -18,6 +18,7 @@ public class UsernameCreationManager : MonoBehaviour
             LoadSaveManager.Instance.gameData.PlayerUsername = usernameInput.text;
             LoadSaveManager.Instance.Save();
             FindAnyObjectByType<MainMenuManager>().CloseUsernameCreation();
+            FindAnyObjectByType<LeaderBoardInitializer>().InitializeLeaderboard();
         }    
     }
 
