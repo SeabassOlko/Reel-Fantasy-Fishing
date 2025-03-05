@@ -28,7 +28,7 @@ public class UsernameCreationManager : MonoBehaviour
 
         foreach (string word in list.bannedWords)
         {
-            if (usernameInput.text.Contains(word))
+            if (usernameInput.text.Contains(word, System.StringComparison.OrdinalIgnoreCase))
                 return true;
         }
 
