@@ -25,9 +25,9 @@ public class LeaderboardTabInfo : MonoBehaviour
         if (score < 1000)
             runScoreText = score.ToString();
         else if (score < 1000000)
-            runScoreText = (score / 1000).ToString() + "k";
+            runScoreText = (Mathf.Round(score / 10) / 100).ToString() + "k";
         else if (score < 1000000000)
-            runScoreText = (score / 1000000).ToString() + "m";
+            runScoreText = (Mathf.Round(score / 10000) / 100).ToString() + "m";
 
 
         return runScoreText;

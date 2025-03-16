@@ -2,12 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour
 {
     [SerializeField]
     GameObject mainMenuCanvas, instructionsCanvas, usernameCreationCanvas, leaderboardCanvas;
+
+    [SerializeField]
+    float animTime = 1.0f;
+
+    SideMoveAnim mainMenuAnim, instructionsAnim, leaderboardAnim;
 
     [SerializeField]
     TMP_Text coinHighscoreText, weightHighscoreText;
@@ -18,12 +24,19 @@ public class MainMenuManager : MonoBehaviour
     [SerializeField]
     TMP_Text leaderboardScoreText, leaderboardScoreTypeText, leaderboardPlayerScoreTypeText, leaderboardListScoreType;
 
-    bool leaderboardWeight = true;
+    bool leaderboardWeight = true, isLeaderboardVisible = false;
 
     private void Start()
     {
         leaderboard = FindAnyObjectByType<LeaderBoardInitializer>();
         leaderboardScoreText.text = Mathf.Round(LoadSaveManager.Instance.gameData.highScores.heaviestWeight * 100) / 100 + " lb";
+
+        mainMenuAnim = mainMenuCanvas.GetComponent<SideMoveAnim>();
+        instructionsAnim = instructionsCanvas.GetComponent<SideMoveAnim>();
+        leaderboardAnim = leaderboardCanvas.GetComponent<SideMoveAnim>();
+
+        mainMenuAnim.MoveIn(SideMoveAnim.MoveDirection.Left, animTime);
+        leaderboardCanvas.SetActive(false);
     }
 
     void SetHighscoreTexts()
@@ -44,20 +57,26 @@ public class MainMenuManager : MonoBehaviour
             LoadSaveManager.Instance.ResetPlayerData();
             LoadSaveManager.Instance.Save();
         }
-        
-        SceneManager.LoadScene("Level1");
+
+        SceneChangerUI changer = FindAnyObjectByType<SceneChangerUI>();
+        changer.SetSceneToLoad("Level1");
+        changer.CloseScreen();
     }
 
     public void OpenInstructions()
     {
-        mainMenuCanvas.SetActive(false);
+        //mainMenuCanvas.SetActive(false);
+        mainMenuAnim.MoveOut(SideMoveAnim.MoveDirection.Left, animTime);
         instructionsCanvas.SetActive(true);
+        instructionsAnim.MoveIn(SideMoveAnim.MoveDirection.Left, animTime);
     }
 
     public void CloseInstructions() 
     {
         mainMenuCanvas?.SetActive(true);
-        instructionsCanvas?.SetActive(false);
+        mainMenuAnim.MoveIn(SideMoveAnim.MoveDirection.Left, animTime);
+        //instructionsCanvas?.SetActive(false);
+        instructionsAnim.MoveOut(SideMoveAnim.MoveDirection.Left, animTime);
     }
 
     public void OpenUsernameCreation()
@@ -69,13 +88,17 @@ public class MainMenuManager : MonoBehaviour
     public void CloseUsernameCreation()
     {
         mainMenuCanvas?.SetActive(true);
+        mainMenuAnim.MoveIn(SideMoveAnim.MoveDirection.Left, animTime);
         usernameCreationCanvas?.SetActive(false);
     }
 
     public void OpenLeaderboard()
     {
-        mainMenuCanvas.SetActive(false);
+        //mainMenuCanvas.SetActive(false);
+        mainMenuAnim.MoveOut(SideMoveAnim.MoveDirection.Left, animTime);
         leaderboardCanvas.SetActive(true);
+        leaderboardAnim.MoveIn(SideMoveAnim.MoveDirection.Left, animTime);
+        isLeaderboardVisible = true;
     }
 
     public void SwitchLeaderboard()
@@ -103,13 +126,16 @@ public class MainMenuManager : MonoBehaviour
 
     public bool IsLeaderboardLoaded()
     {
-        return leaderboardCanvas.activeSelf;
+        return isLeaderboardVisible;
     }
 
     public void CloseLeaderboard()
     {
         mainMenuCanvas?.SetActive(true);
-        leaderboardCanvas?.SetActive(false);
+        mainMenuAnim.MoveIn(SideMoveAnim.MoveDirection.Left, animTime);
+        //leaderboardCanvas?.SetActive(false);
+        leaderboardAnim.MoveOut(SideMoveAnim.MoveDirection.Left, animTime);
+        isLeaderboardVisible = false;
     }
 
     public void ExitGame()
