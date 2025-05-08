@@ -46,6 +46,7 @@ public class ShopMenu : BaseMenu
     public override void EnterState()
     {
         base.EnterState();
+        GetComponent<SideMoveAnim>().MoveIn(SideMoveAnim.MoveDirection.Up, 0.5f);
     }
     
     public void ExitShop()

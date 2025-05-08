@@ -33,7 +33,7 @@ public class MenuController : MonoBehaviour
             concreteMenus = gameObject.GetComponentsInChildren<BaseMenu>(true);
         }
 
-        //loop through each menu and initialize their state in the dicitonary
+        //loop through each menu and initialize their state in the dictionary
         foreach (BaseMenu menu in concreteMenus)
         {
             if (menu == null) continue;
@@ -42,6 +42,7 @@ public class MenuController : MonoBehaviour
             if (menuMap.ContainsKey(menu.state))
                 Debug.Log($"{menu.state} is already in menuMap, overwriting the state with a new concrete menu");
             menuMap.Add(menu.state, menu);
+            menu.gameObject.SetActive(false);
         }
 
         SetActiveState(initialState);

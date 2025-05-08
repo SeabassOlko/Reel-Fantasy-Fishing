@@ -31,13 +31,14 @@ public class FishingMenu : BaseMenu
         base.InitState(ctx);
         state = MenuController.MenuStates.InGame;
         shopButton.onClick.AddListener(() => EnterShop());
-        exitButton.onClick.AddListener(() => SceneManager.LoadScene("MainMenu"));
+        exitButton.onClick.AddListener(() => ExitToMenu());
         baitButton.onClick.AddListener(() => CycleBait());
     }
 
     public override void EnterState()
     {
         base.EnterState();
+        GetComponent<SideMoveAnim>().MoveIn(SideMoveAnim.MoveDirection.Up, 0.5f);
     }
 
     void EnterShop()
@@ -73,5 +74,13 @@ public class FishingMenu : BaseMenu
     public void EnterLoseMenu()
     {
         context.SetActiveState(MenuController.MenuStates.Lose);
+    }
+
+    void ExitToMenu()
+    {
+        SceneChangerUI changer = FindAnyObjectByType<SceneChangerUI>();
+        changer.SetSceneToLoad("MainMenu");
+        changer.CloseScreen();
+
     }
 }

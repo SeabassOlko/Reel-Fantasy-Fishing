@@ -52,14 +52,15 @@ public class MainMenuManager : MonoBehaviour
 
     public void PlayGame()
     {
+        SceneChangerUI changer = FindAnyObjectByType<SceneChangerUI>();
+        changer.SetSceneToLoad("Level1");
+
         if (LoadSaveManager.Instance.gameData.playerStats.gameReset)
         {
             LoadSaveManager.Instance.ResetPlayerData();
             LoadSaveManager.Instance.Save();
         }
 
-        SceneChangerUI changer = FindAnyObjectByType<SceneChangerUI>();
-        changer.SetSceneToLoad("Level1");
         changer.CloseScreen();
     }
 

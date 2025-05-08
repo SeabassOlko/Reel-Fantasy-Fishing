@@ -24,6 +24,7 @@ public class CatchMenu : BaseMenu
     public override void EnterState()
     {
         base.EnterState();
+        GetComponent<SideMoveAnim>().MoveIn(SideMoveAnim.MoveDirection.Down, 0.5f);
     }
 
     public void SetUpFishInfo(Sprite fishSprite, string fishN, float weight, int value)

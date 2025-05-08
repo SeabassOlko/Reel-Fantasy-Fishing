@@ -64,10 +64,10 @@ public class SideMoveAnim : MonoBehaviour
             else if (animDirection == MoveDirection.Up)
             {
                 animTimeElapsed += Time.deltaTime;
-                uiTransform.anchoredPosition = startTransform - new Vector3(0, verticalMoveAmount * (animTimeElapsed / animTime), 0);
+                uiTransform.anchoredPosition = startTransform + new Vector3(0, verticalMoveAmount * (animTimeElapsed / animTime), 0);
                 if (animTimeElapsed >= animTime)
                 {
-                    uiTransform.anchoredPosition = startTransform - new Vector3(0, verticalMoveAmount * (animTimeElapsed / animTime), 0);
+                    uiTransform.anchoredPosition = startTransform + new Vector3(0, verticalMoveAmount * (animTimeElapsed / animTime), 0);
                     playAnim = false;
                     grabTransform = false;
                     animTimeElapsed = 0;
@@ -76,10 +76,10 @@ public class SideMoveAnim : MonoBehaviour
             else if (animDirection == MoveDirection.Down)
             {
                 animTimeElapsed += Time.deltaTime;
-                uiTransform.anchoredPosition = startTransform + new Vector3(0, verticalMoveAmount * (animTimeElapsed / animTime), 0);
+                uiTransform.anchoredPosition = startTransform - new Vector3(0, verticalMoveAmount * (animTimeElapsed / animTime), 0);
                 if (animTimeElapsed >= animTime)
                 {
-                    uiTransform.anchoredPosition = startTransform + new Vector3(0, verticalMoveAmount * (animTimeElapsed / animTime), 0);
+                    uiTransform.anchoredPosition = startTransform - new Vector3(0, verticalMoveAmount * (animTimeElapsed / animTime), 0);
                     playAnim = false;
                     grabTransform = false;
                     animTimeElapsed = 0;
@@ -99,9 +99,9 @@ public class SideMoveAnim : MonoBehaviour
         else if (direction == MoveDirection.Right)
             start = new Vector3(-horizontalMoveAmount, 0f, 0f);
         else if (direction == MoveDirection.Up)
-            start = new Vector3(0, verticalMoveAmount, 0);
-        else
             start = new Vector3(0, -verticalMoveAmount, 0);
+        else
+            start = new Vector3(0, verticalMoveAmount, 0);
 
         uiTransform.anchoredPosition = start;
 
